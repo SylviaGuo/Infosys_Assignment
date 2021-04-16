@@ -1,12 +1,12 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import GeneratePins from '../src/components/generatePins'
+import NavBar from '../src/components/navBar';
 
 function App() {
   return (
     <div className="App">
-      <GeneratePins></GeneratePins>
+      <NavBar/>
     </div>
   );
 }

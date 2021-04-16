@@ -1,17 +1,4 @@
-import React, { useState, useEffect } from 'react';
-
-interface pinNode {
-    pins: string[]
-}
-const GeneratePins: React.FC = () =>{
-    const [pinCollection, setPinCollection] = useState<pinNode>({pins:[]})
-
-    useEffect(()=>{
-        const pins = pinsGeneration(5)
-        setPinCollection({...pinCollection,pins})
-        console.log(pinCollection.pins)
-    }, [])
-
+const GeneratePins = () =>{
     const pinsGeneration = (amount:number) => {
         let pinsStr:Array<string> = []
         let flag = 0
@@ -70,13 +57,6 @@ const GeneratePins: React.FC = () =>{
         }
         return pinStr
     }
-
-    return(
-        <div>
-            {pinCollection.pins.map((pin, i: number) => <p key={i}>{pin}</p>)}
-        </div>
-        
-    )
 }
 
-export default GeneratePins;
+export default GeneratePins
