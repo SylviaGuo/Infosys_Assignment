@@ -18,13 +18,51 @@ export const Container = styled.div`
 export const InnerWrap = styled.div`
     display:flex;
     justify-content:space-between;
-    width:420px;
+    margin-top:100px;
+    flex-wrap: wrap;
+    width:460px;
+    height:160px;
 `
 export const StyledButton = styled.button`
     border: 1px solid #3399FF;
     background-color:#FFFFFF;
     border-radius:5px;
     width:180px;
+    height:36px;
+    font-weight:bold;
+    color:#3399FF;
+     :hover{
+        cursor:pointer;
+        color:#FFFFFF;
+        background-color:#3399FF
+    }
+`
+export const StyledInput = styled.input`
+    width:80px;
+    height:40px;
+    text-align:center;
+    border:1px solid #E8E8E8;
+    font-size:1.2em;
+`
+export const StyledDiv = styled.div`
+    display:flex;
+    justify-content:center;
+    align-content: flex-star;
+    width:680px;
+    flex-wrap: wrap;
+`
+export const RowDiv = styled.div `
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    width:100%;
+    height:50px;
+`
+export const DeleteButton = styled.button`
+    border: 1px solid #3399FF;
+    background-color:#FFFFFF;
+    border-radius:5px;
+    width:100px;
     height:30px;
     font-weight:bold;
     color:#3399FF;

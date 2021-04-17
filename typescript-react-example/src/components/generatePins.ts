@@ -1,5 +1,5 @@
-const GeneratePins = () =>{
-    const pinsGeneration = (amount:number) => {
+// const GeneratePins = () =>{
+    export const GeneratePins = (amount:number) => {
         let pinsStr:Array<string> = []
         let flag = 0
         while(flag<amount){
@@ -57,6 +57,6 @@ const GeneratePins = () =>{
         }
         return pinStr
     }
-}
+// }
 
-export default GeneratePins
+// export default GeneratePins
