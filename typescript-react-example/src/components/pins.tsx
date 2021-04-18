@@ -1,6 +1,6 @@
-import React, {useState, useCallback} from 'react'
+import React, {useState, useEffect} from 'react'
 import {useSelector} from 'react-redux'
-import {Container, StyledDiv, RowDiv,StyledButton,StyledInput,DeleteButton} from '../style/styled'
+import {Container, StyledDiv, RowDiv,StyledButton,StyledInput,DeleteButton, StyledP} from '../style/styled'
 import {useDispatch} from 'react-redux'
 import {UPDATE_PIN_NAME, REMOVE_PIN} from '../store/pin/action'
 
@@ -11,12 +11,20 @@ interface pinName{
 
 const Pins = () => {
     const [pin, setPin] = useState<pinName>({id:'',name:'Luck'})
-    const [state, updateState] = useState({update:''});
+    const [hasPin, setHasPin] = useState<Boolean>(false)
+
     const pinCollection = useSelector((state:PinState) => state.pinCollection)
-    const forceUpdate = useCallback(() => updateState({update:'true'}), []);
+    console.log(pinCollection.length)
+
     console.log(pinCollection)
     const dispatch = useDispatch()
     const uniqid = require('uniqid')
+
+    useEffect(() => {
+        console.log("in")
+        if(pinCollection.length !==0 )
+            setHasPin(true)
+    }, [pinCollection])
 
     const handleChange = (e:React.FormEvent<HTMLInputElement>) => {
         const id = e.currentTarget.id
@@ -30,25 +38,28 @@ const Pins = () => {
     const handleDelete = (e:React.MouseEvent) => {
         const id = e.currentTarget.id
         dispatch({type:REMOVE_PIN, payload:{id}})
-        forceUpdate()
     }
     
     return(
          <Container>
+             { hasPin?(
             <StyledDiv>
                 {pinCollection.map((singlePin) => {
 
-                    return <RowDiv>
+                    return <RowDiv key={uniqid('row')}>
                                 <StyledInput key={uniqid('out')} id={singlePin.id} value={singlePin.name} onChange={(e) => handleChange(e)}/>
-                                {singlePin.pins.map((pin) => {
-                                    return <StyledInput key={uniqid('inner')} value={pin} readOnly/>
+                                {singlePin.pins.map((pin, index) => {
+                                    return <StyledInput key={uniqid('inner')} data-testid={'pin' + index} value={pin} readOnly/>
                                 })}
-                                <DeleteButton key={uniqid('delete')} id={singlePin.id} onClick={(e) => handleDelete(e)}>DELETE</DeleteButton>
+                                <DeleteButton key={uniqid('delete')} id={singlePin.id} data-testid='btnDelete' onClick={(e) => handleDelete(e)}>DELETE</DeleteButton>
                             </RowDiv>
                     
 
                 })}
-            </StyledDiv>
+            </StyledDiv>):(
+            <StyledP data-testid='pMsg'>No saved pins!</StyledP>
+            )
+            }
         </Container>
         
     )

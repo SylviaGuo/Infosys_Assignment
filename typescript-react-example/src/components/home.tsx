@@ -30,12 +30,12 @@ const Home = () => {
         <Container>
             <InnerWrap>
          
-                {pinValue.pins.map((pin) => {
-                    return <StyledInput key={uniqid()} value={pin} readOnly/>
+                {pinValue.pins.map((pin, index) => {
+                    return <StyledInput key={uniqid()} value={pin} data-testid={'inputPin'+ index} readOnly/>
                 })}
           
-                <StyledButton onClick={handleGenerate}>GENERATE</StyledButton>
-                <StyledButton onClick={() => dispatch({type:ADD_PINS, payload:{id:pinValue.id, pins:pinValue.pins}})}>SAVE</StyledButton>
+                <StyledButton onClick={handleGenerate} data-testid="btnGenerate">GENERATE</StyledButton>
+                <StyledButton onClick={() => dispatch({type:ADD_PINS, payload:{id:pinValue.id, pins:pinValue.pins}})} data-testid="btnSave">SAVE</StyledButton>
                
             </InnerWrap>
         </Container>

@@ -44,10 +44,10 @@ const NavBar = () => {
             <StyledNav>
                 <StyledUl>
                     <StyledLi>
-                        <StyledLink to='/'>Generate</StyledLink>
+                        <StyledLink to='/' data-testid='lkGenerate'>Generate</StyledLink>
                     </StyledLi>
                     <StyledLi>
-                         <StyledLink to='/pins'>Saved</StyledLink>
+                         <StyledLink to='/pins' data-testid='lkSaved'>Saved</StyledLink>
                     </StyledLi>
                 </StyledUl>
             </StyledNav>

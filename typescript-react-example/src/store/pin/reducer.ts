@@ -9,7 +9,14 @@ const PinReducer:Reducer<PinState, PinAction> = (state = initialState, action: P
     switch(action.type){
         case ADD_PINS:
             console.log("add pins")
-            return {pinCollection:[...state.pinCollection, {id:action.payload.id, name:'Name',pins:action.payload.pins}]}
+            let isDuplcate = state.pinCollection.find((pin) => {
+                return pin.id === action.payload.id
+            })
+            if(!isDuplcate){
+                return {pinCollection:[...state.pinCollection, {id:action.payload.id, name:'Name',pins:action.payload.pins}]}
+            }
+            return{...state}
+            
         case UPDATE_PIN_NAME:
             console.log("update name")
             console.log(action.payload.name)
@@ -19,6 +26,7 @@ const PinReducer:Reducer<PinState, PinAction> = (state = initialState, action: P
                 return pin
             })
             return {...state,pinCollection:temp}
+
         case REMOVE_PIN:
             console.log("remove a pin")
             let pins = state.pinCollection.filter((pin) => {

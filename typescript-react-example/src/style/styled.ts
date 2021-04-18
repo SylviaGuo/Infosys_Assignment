@@ -59,16 +59,19 @@ export const RowDiv = styled.div `
     height:50px;
 `
 export const DeleteButton = styled.button`
-    border: 1px solid #3399FF;
-    background-color:#FFFFFF;
+    border: 1px solid #990033;
+    background-color:#990033;
     border-radius:5px;
     width:100px;
     height:30px;
     font-weight:bold;
-    color:#3399FF;
+    color:#FFFFFF;
      :hover{
         cursor:pointer;
         color:#FFFFFF;
-        background-color:#3399FF
+        background-color:#990000
     }
+`
+export const StyledP = styled.p`
+
 `
