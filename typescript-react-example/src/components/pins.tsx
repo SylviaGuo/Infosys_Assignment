@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import {useSelector} from 'react-redux'
-import {Container, StyledDiv, RowDiv,StyledButton,StyledInput,DeleteButton, StyledP} from '../style/styled'
+import {Container, StyledDiv, RowDiv,StyledInput,NameInput, DeleteButton, StyledP} from '../style/styled'
 import {useDispatch} from 'react-redux'
 import {UPDATE_PIN_NAME, REMOVE_PIN} from '../store/pin/action'
 
@@ -9,30 +9,42 @@ interface pinName{
     name: string
 }
 
+
 const Pins = () => {
-    const [pin, setPin] = useState<pinName>({id:'',name:'Luck'})
+    const [localPinCollection, setLocalPinCollection] = useState<Array<Pin>>([])
     const [hasPin, setHasPin] = useState<Boolean>(false)
+    const inputRef = useRef()
 
     const pinCollection = useSelector((state:PinState) => state.pinCollection)
-    console.log(pinCollection.length)
+    console.log(pinCollection, localPinCollection)
 
-    console.log(pinCollection)
     const dispatch = useDispatch()
     const uniqid = require('uniqid')
 
     useEffect(() => {
-        console.log("in")
-        if(pinCollection.length !==0 )
+        setLocalPinCollection(pinCollection)
+        if(pinCollection.length !==0 ){
+            console.log("in",pinCollection.length)
             setHasPin(true)
+        }
+            
     }, [pinCollection])
 
     const handleChange = (e:React.FormEvent<HTMLInputElement>) => {
         const id = e.currentTarget.id
         const name = e.currentTarget.value
         console.log(id, name)
-        setPin({id,name})
-        console.log(pin)
-        dispatch({type:UPDATE_PIN_NAME, payload:{id:pin.id, name:pin.name}})
+        //update store
+        dispatch({type:UPDATE_PIN_NAME, payload:{id, name}})
+
+        //update local
+        let temp = localPinCollection.map((pin) => {
+            if(pin.id === id)
+                pin = {...pin, name}
+            return pin
+        })
+        setLocalPinCollection(temp)
+        
     }
 
     const handleDelete = (e:React.MouseEvent) => {
@@ -44,21 +56,18 @@ const Pins = () => {
          <Container>
              { hasPin?(
             <StyledDiv>
-                {pinCollection.map((singlePin) => {
+                {localPinCollection.map((singlePin) => {
 
                     return <RowDiv key={uniqid('row')}>
-                                <StyledInput key={uniqid('out')} id={singlePin.id} value={singlePin.name} onChange={(e) => handleChange(e)}/>
+                                <NameInput key={uniqid('out')} id={singlePin.id} defaultValue={singlePin.name} onBlur={(e) => handleChange(e)}/>
                                 {singlePin.pins.map((pin, index) => {
-                                    return <StyledInput key={uniqid('inner')} data-testid={'pin' + index} value={pin} readOnly/>
+                                    return <StyledInput key={uniqid('inner')} data-testid={'pin'+index} value={pin} readOnly/>
                                 })}
                                 <DeleteButton key={uniqid('delete')} id={singlePin.id} data-testid='btnDelete' onClick={(e) => handleDelete(e)}>DELETE</DeleteButton>
                             </RowDiv>
-                    
-
                 })}
             </StyledDiv>):(
-            <StyledP data-testid='pMsg'>No saved pins!</StyledP>
-            )
+            <StyledP data-testid='pMsg'>No saved pins!</StyledP>)
             }
         </Container>
         

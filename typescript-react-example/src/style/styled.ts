@@ -47,9 +47,10 @@ export const StyledInput = styled.input`
 export const StyledDiv = styled.div`
     display:flex;
     justify-content:center;
-    align-content: flex-star;
-    width:680px;
     flex-wrap: wrap;
+    align-content: flex-star;
+    width:760px;
+    
 `
 export const RowDiv = styled.div `
     display:flex;
@@ -74,4 +75,11 @@ export const DeleteButton = styled.button`
 `
 export const StyledP = styled.p`
 
+`
+export const NameInput = styled.input`
+    width:150px;
+    height:40px;
+    text-align:center;
+    border:1px solid #E8E8E8;
+    font-size:1.2em;
 `

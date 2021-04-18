@@ -12,5 +12,3 @@ type PinAction = {
     type: string
     payload: Pin
 }
-
-type DispatchType = (args: PinAction) => PinAction
